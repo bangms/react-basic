@@ -17,7 +17,9 @@ body {
   font-weight: 600;
   font-size: 20px;
 }
-
+.list h3 {
+  cursor: pointer;
+}
 .list span {
   cursor: pointer;
 }

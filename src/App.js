@@ -11,7 +11,7 @@ function App() {
   let [count, addcount] = useState(0);
 
   let [modal, modal변경] = useState(false); // boolean 값을 가진 state // 모달창을 켜고 닫는 스위치
-
+  let [누른제목, 누른제목변경] = useState(0);
   // for in / for of 키워드도 동일한 방법으로 사용
   function 반복된UI() {
     
@@ -74,10 +74,10 @@ function App() {
 
         // Map()
         // 반복할 데이터.map( ()=> {return <HTML>} )
-        title.map(function(post) { // post가 title배열 안에 있는 데이터 하나하나를 의미
+        title.map(function(post, i) { // post가 title배열 안에 있는 데이터 하나하나를 의미 // i 반복문 돌 때마다 0,1,2..가 되는 변수
           return (
             <div className="list">
-              <h3> { post } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3> 
+              <h3 onClick={ () => { 누른제목변경(i) } }> { post } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3> 
               <p>1월 17일 발행</p>
               <hr />
             </div>
@@ -88,6 +88,10 @@ function App() {
 
       {/* <h4>{ posts }</h4> */}
       {/* test() 이런식으로 함수도 가능 */}
+
+      {/* <button onClick={ () => { 누른제목변경(0) } }>버튼1</button>
+      <button onClick={ () => { 누른제목변경(1) } }>버튼2</button>
+      <button onClick={ () => { 누른제목변경(2) } }>버튼3</button> */}
 
       <button onClick = { () => { modal변경(!modal) } }>열기</button>
 
@@ -102,7 +106,7 @@ function App() {
         // UI가 보이는지 안보이는지 정보(상태)를 state로 저장해둠
         // 그리고 if문을 이용해 state가 true일 때 UI를 보여줌
         modal == true
-        ? <Modal title={title} ></Modal>
+        ? <Modal title={title} 누른제목={누른제목} ></Modal>
         : null // 텅 빈 HTML 이라는 뜻
      }
 
@@ -138,7 +142,7 @@ function App() {
 function Modal(props){
   return (
     <div className="modal">
-      <h2> { props.title[0] } </h2>
+      <h2> { props.title[props.누른제목] } </h2>
       <p>날짜</p>
       <p>내용</p>
     </div>
