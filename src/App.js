@@ -50,7 +50,7 @@ function App() {
         <div style={ { color : 'gray', fontSize: '30px'} }>개발 Blog</div>
       </div> 
       {/* changeTitle() 로 넣으면 바로 실행이 되기 때문에 클릭이 됐을 때만 실행이 되도록 해야하므로 () 제외하고 입력 */}
-      <button onClick={ changeTitle }>버튼</button>
+      {/* <button onClick={ changeTitle }>버튼</button> */}
       {/* <div className="list"> */}
         {/* 좋아요 버튼 만들기 */}
         {/* <h3> { title[0] } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3>  */}
@@ -67,7 +67,7 @@ function App() {
         <p>1월 19일 발행</p>
         <hr />
       </div> */}
-      { 반복된UI() }
+      {/* { 반복된UI() } */}
       {
         // 반복문 쓰는 법
         // { 변수명, 함수명 }
@@ -89,7 +89,7 @@ function App() {
       {/* <h4>{ posts }</h4> */}
       {/* test() 이런식으로 함수도 가능 */}
 
-      {/* <button onClick = { () => { modal변경(!modal) } }>열기</button> */}
+      <button onClick = { () => { modal변경(!modal) } }>열기</button>
 
       {
         // if 문은 사용할 수 없음 // if 대신 삼항연산자 사용
@@ -102,7 +102,7 @@ function App() {
         // UI가 보이는지 안보이는지 정보(상태)를 state로 저장해둠
         // 그리고 if문을 이용해 state가 true일 때 UI를 보여줌
         modal == true
-        ? <Modal></Modal>
+        ? <Modal title={title} ></Modal>
         : null // 텅 빈 HTML 이라는 뜻
      }
 
@@ -135,10 +135,10 @@ function App() {
   Component 많이 만들면 단점 : state 쓸 때 복잡해짐
 */
 
-function Modal(){
+function Modal(props){
   return (
     <div className="modal">
-      <h2>제목</h2>
+      <h2> { props.title[0] } </h2>
       <p>날짜</p>
       <p>내용</p>
     </div>
