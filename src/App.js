@@ -12,6 +12,14 @@ function App() {
 
   let [modal, modal변경] = useState(false); // boolean 값을 가진 state // 모달창을 켜고 닫는 스위치
 
+  var arr = [2,3,4];
+  // array 내의 모든 데이터에 똑같은 작업을 시켜주고 싶을 때 .map()
+
+  var newArr = arr.map(function(a) {
+    return a * 2
+  });
+  // 이 자리에 [4,6,8] 남음 // .map()은 유사 반복문
+
   function test() {
     return 100;
   }
@@ -32,10 +40,10 @@ function App() {
       </div> 
       {/* changeTitle() 로 넣으면 바로 실행이 되기 때문에 클릭이 됐을 때만 실행이 되도록 해야하므로 () 제외하고 입력 */}
       <button onClick={ changeTitle }>버튼</button>
-      <div className="list">
+      {/* <div className="list"> */}
         {/* 좋아요 버튼 만들기 */}
-        <h3> { title[0] } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3> 
-        <p>1월 17일 발행</p>
+        {/* <h3> { title[0] } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3>  */}
+        {/* <p>1월 17일 발행</p>
         <hr />
       </div>
       <div className="list">
@@ -47,9 +55,30 @@ function App() {
         <h3 onClick={ () => { modal변경(true)}  }> { title[2] } </h3>
         <p>1월 19일 발행</p>
         <hr />
-      </div>
+      </div> */}
+      
+      {
+        // 반복문 쓰는 법
+        // { 변수명, 함수명 }
+
+        // Map()
+        // 반복할 데이터.map( ()=> {return <HTML>} )
+        title.map(function(post) { // post가 title배열 안에 있는 데이터 하나하나를 의미
+          return (
+            <div className="list">
+              <h3> { post } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3> 
+              <p>1월 17일 발행</p>
+              <hr />
+            </div>
+          )
+        })
+
+      }
+
       {/* <h4>{ posts }</h4> */}
       {/* test() 이런식으로 함수도 가능 */}
+
+      {/* <button onClick = { () => { modal변경(!modal) } }>열기</button> */}
 
       {
         // if 문은 사용할 수 없음 // if 대신 삼항연산자 사용
@@ -64,7 +93,8 @@ function App() {
         modal == true
         ? <Modal></Modal>
         : null // 텅 빈 HTML 이라는 뜻
-      }
+     }
+
 
       {/* <Modal></Modal> */}
       {/* <Modal /> */}
