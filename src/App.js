@@ -12,6 +12,9 @@ function App() {
 
   let [modal, modal변경] = useState(false); // boolean 값을 가진 state // 모달창을 켜고 닫는 스위치
   let [누른제목, 누른제목변경] = useState(0);
+ 
+  let [입력값, 입력값변경] = useState(''); // 초기값 ''
+ 
   // for in / for of 키워드도 동일한 방법으로 사용
   function 반복된UI() {
     
@@ -76,15 +79,23 @@ function App() {
         // 반복할 데이터.map( ()=> {return <HTML>} )
         title.map(function(post, i) { // post가 title배열 안에 있는 데이터 하나하나를 의미 // i 반복문 돌 때마다 0,1,2..가 되는 변수
           return (
-            <div className="list">
+            <div className="list" key={i}> 
+            {/* map 반복문으로 돌린 html에는 key가 필요함 */}
               <h3 onClick={ () => { 누른제목변경(i) } }> { post } <span onClick={ () => { addcount(++count) } }>👍</span> { count } </h3> 
               <p>1월 17일 발행</p>
               <hr />
             </div>
           )
         })
-
       }
+
+      {/* 사용자가 입력한 값을 state로 저장 
+        뭔가 입력이 될 때 안의 함수가 실행됨 */}
+      {/* {입력값}
+      <input onChange={ (e) => { 입력값변경(e.target.value) } } /> */}
+
+
+
 
       {/* <h4>{ posts }</h4> */}
       {/* test() 이런식으로 함수도 가능 */}
