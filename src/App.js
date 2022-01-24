@@ -12,6 +12,17 @@ function App() {
 
   let [modal, modal변경] = useState(false); // boolean 값을 가진 state // 모달창을 켜고 닫는 스위치
 
+  // for in / for of 키워드도 동일한 방법으로 사용
+  function 반복된UI() {
+    
+    var 어레이 = [];
+    for (var i = 0; i < 3; i++) {
+      어레이.push(<div>안녕</div>);
+    }
+    
+    return 어레이; 
+  }
+
   var arr = [2,3,4];
   // array 내의 모든 데이터에 똑같은 작업을 시켜주고 싶을 때 .map()
 
@@ -56,7 +67,7 @@ function App() {
         <p>1월 19일 발행</p>
         <hr />
       </div> */}
-      
+      { 반복된UI() }
       {
         // 반복문 쓰는 법
         // { 변수명, 함수명 }
