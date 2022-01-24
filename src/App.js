@@ -89,6 +89,16 @@ function App() {
         })
       }
 
+      <div className='publish'>
+        <input onChange= { (e) => {입력값변경(e.target.value)} }/>
+        <button onClick={ () => { 
+          // 실전 서버로 먼저 보내서(ajax 사용) 영구저장 
+          var arrayCopy = [...title];
+          arrayCopy.unshift(입력값);
+          newTitle(arrayCopy);
+         } }>저장</button>
+      </div>
+
       {/* 사용자가 입력한 값을 state로 저장 
         뭔가 입력이 될 때 안의 함수가 실행됨 */}
       {/* {입력값}
