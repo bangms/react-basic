@@ -48,6 +48,11 @@ body {
   color: #61dafb;
 }
 
+.modal {
+  background-color: lightcyan;
+  padding: 30px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
