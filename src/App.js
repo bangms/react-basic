@@ -10,6 +10,8 @@ function App() {
   // state 값 / state 변경 함수 // addcount(1) // count가 1로 변경됨 // addcount(대체할데이터)
   let [count, addcount] = useState(0);
 
+  let [modal, modal변경] = useState(false); // boolean 값을 가진 state // 모달창을 켜고 닫는 스위치
+
   function test() {
     return 100;
   }
@@ -42,14 +44,29 @@ function App() {
         <hr />
       </div>
       <div className="list">
-        <h3> { title[2] } </h3>
+        <h3 onClick={ () => { modal변경(true)}  }> { title[2] } </h3>
         <p>1월 19일 발행</p>
         <hr />
       </div>
       {/* <h4>{ posts }</h4> */}
       {/* test() 이런식으로 함수도 가능 */}
 
-      <Modal></Modal>
+      {
+        // if 문은 사용할 수 없음 // if 대신 삼항연산자 사용
+        // 1이 3보다 작으면 ? 참일 때 실행할 코드 : 거짓일 때 실행할 코드
+        // 1 < 3 
+        // ? console.log("맞아요") 
+        // : console.log("틀려요")
+
+        // 리액트에선 UI를 만들 때 state 데이터를 이용함
+        // UI가 보이는지 안보이는지 정보(상태)를 state로 저장해둠
+        // 그리고 if문을 이용해 state가 true일 때 UI를 보여줌
+        modal == true
+        ? <Modal></Modal>
+        : null // 텅 빈 HTML 이라는 뜻
+      }
+
+      {/* <Modal></Modal> */}
       {/* <Modal /> */}
 
       {/* HTML을 한 단어로 줄여서 쓸 수 있는 방법 (Component)
@@ -68,6 +85,13 @@ function App() {
   2. return() 안에 있는 건 태그 하나로 묶어야 함 (제일 바깥 태그는 하나)
     return() 내부를 묶을 때 의미없는 div를 쓰기 싫으면 fragment Tag <> </>
   3. function App 이랑 나란히 만들기 (App도 하나의 컴포넌트)
+
+  어떤 걸 Component로 만드는게 좋을까?
+  - 반복출현하는 HTML 덩어리들
+  - 자주 변경되는 HTML UI들 (재렌더링이 많이 일어나는 UI들)
+  - 다른 페이지 만들 때도 컴포넌트로 만듦
+
+  Component 많이 만들면 단점 : state 쓸 때 복잡해짐
 */
 
 function Modal(){
