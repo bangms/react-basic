@@ -1,5 +1,5 @@
 /*eslint-disable*/ 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import './Detail.scss';
@@ -11,10 +11,23 @@ let 제목 = styled.h4`
             font-size : 25px; 
             color : ${ props => props.색상 }; 
           `;
-
-
-
+          
 function Detail(props) {
+
+  let [alert, alert변경] = useState(true);
+
+  useEffect(()=>{
+    // 컴포넌트가 mount 되었을 때
+    // 컴포넌트가 update 될 때
+    // 특정코드를 실행할 수 있음
+    console.log(111);
+    let timer = setTimeout(()=>{ alert변경(false) }, 2000);
+    // return function 어쩌구() { 실행할 코드~~~ // 컴포넌트가 사라질 때 코드를 실행시킬수도 있음}
+  });
+
+  // useEffect(()=>{
+  //    // 여러개 사용 가능 순서대로 실행됨.
+  // })
 
   let history = useHistory();
   let { id } = useParams();
@@ -31,9 +44,14 @@ function Detail(props) {
       <제목 색상={'red'}>안녕하세요2</제목> */}
     </박스>
 
-    <div className='my-alert-yellow'>
-      <p>재고가 얼마 남지 않았습니다</p>
-    </div>
+    {
+      alert == true
+      ? (<div className='my-alert-yellow'>
+          <p>재고가 얼마 남지 않았습니다</p>
+         </div>)
+      : null
+    }
+    
 
     <div className="row">
       <div  className="col-md-6">
