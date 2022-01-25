@@ -35,29 +35,34 @@ function App() {
         </Container>
       </Navbar>
 
-      
-      {/* exact 속성 추가하면 경로가 정확히 일치할 경우에만 보여줌 */}
-      <Route exact path="/"> 
-        <div className="background">
-          <h1> 20% Season Off</h1>
-          <p>Get to know more about the team maintaining React Bootstrap. Learn a little history of how, why and when the project started and how you can be a part of it.</p>
-          <Button variant="secondary">Learn More</Button>
-        </div>
-        <div className="container">
-          <div className="row">
-            {
-              shoes.map(function(item, i) {
-                return <Card item={shoes[i]} i={i} />
-              })
-            }
+      <Switch>
+        
+        {/* exact 속성 추가하면 경로가 정확히 일치할 경우에만 보여줌 */}
+        <Route exact path="/"> 
+          <div className="background">
+            <h1> 20% Season Off</h1>
+            <p>Get to know more about the team maintaining React Bootstrap. Learn a little history of how, why and when the project started and how you can be a part of it.</p>
+            <Button variant="secondary">Learn More</Button>
           </div>
-        </div>
-      </Route>
-      <Route path="/detail">
-        <Detail />
-      </Route>
+          <div className="container">
+            <div className="row">
+              {
+                shoes.map(function(item, i) {
+                  return <Card item={shoes[i]} i={i} />
+                })
+              }
+            </div>
+          </div>
+        </Route>
+        <Route path="/detail">
+          <Detail />
+        </Route>
+        <Route path="/:id"> 
+        {/* /모든문자 라는 경로를 의미 */}
+          <div>아무거나 적었을 때 이거 보여줘</div>
 
-
+        </Route>
+      </Switch>
     </div>
   );
 }
