@@ -1,0 +1,46 @@
+// SASS 문법 2. @import
+@import './reset.scss';
+
+// SASS 문법 1. 변수 사용
+$메인칼라 : #ff0000;
+
+.red {
+    color: $메인칼라;
+}
+
+// SASS 문법 3. nesting 문법
+// div.container {
+//     h4 {
+//         color: blue;
+//     }
+
+//     p {
+//         color: green;
+//     }
+// }
+
+//SASS 문법 5. @mixin / @include 문법
+// 함수가 적용할 위치보다 상단에 있어야하고 @include 함수명()으로 사용
+@mixin func() {
+    background-color: #eee;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.my-alert {
+    @include func();
+
+    p {
+        margin: 0;
+    }
+}
+
+// SASS 문법 4. extends 문법
+.my-alert-yellow {
+   @extend .my-alert; 
+   background-color: #ffe591;
+}
+
