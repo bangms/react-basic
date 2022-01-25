@@ -1,6 +1,6 @@
 /* eslint-disable */ 
 
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button, Modal } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js' // 무조건 ./로 시작 (./ 현재 경로라는 뜻)
@@ -10,6 +10,12 @@ import axios from 'axios'; // ajax를 사용하기 위한 라이브러리
 // Ajax는 1. jQuery Ajax를 쓰든가, 2. axios 설치해서 쓰든가, 3. 쌩자바스크립트 fetch()를 쓰든가
 // 리액트 개발환경에선 axios 혹은 fetch()를 많이 사용
 
+// createContext는 범위를 생성해줌
+// 같은 변수값을 공유할 범위 // 같은 값을 공유할 HTML을 범위로 싸매기
+// 여러개 만들 수 있음
+// export 다른 컴포넌트 파일에서 사용하고 싶을 경우 export로 내보내기 해주고
+// import 시켜주어야 함. 
+export let 재고context = React.createContext();
 
 function App() {
 
@@ -53,6 +59,10 @@ function App() {
             <Button variant="secondary">Learn More</Button>
           </div>
           <div className="container">
+
+            {/* value={공유하고싶은데이터} value 작명 X */}
+            <재고context.Provider value={재고}>
+
             <div className="row">
             
             { shoes.map( (a,i) => { 
@@ -61,6 +71,10 @@ function App() {
             }
 
             </div>
+
+            </재고context.Provider>
+            {/* 범위를 지정 */}
+            
             {
               loading == true
               ? (<h2>Loading...</h2>)
@@ -118,13 +132,17 @@ function App() {
           </div>
         </Route>
         
-        <Route path="/detail/:id">
-          <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
-        </Route>
+        <재고context.Provider value={재고}>
+        
+          <Route path="/detail/:id">
+            <Detail shoes={shoes} 재고={재고} 재고변경={재고변경} />
+          </Route>
 
-        <Route path="/detail">
-          <Detail item={ shoes }/>
-        </Route>
+        </재고context.Provider>
+
+          <Route path="/detail">
+            <Detail item={ shoes }/>
+          </Route>
         {/* <Route path="/detail/1">
           <Detail item={ shoes }/>
         </Route> */}
@@ -138,31 +156,32 @@ function App() {
   );
 }
 
+// 범위 안에 Card가 있어서 재고context 사용가능
 function Card(props) {
+  
+  // useContext(범위이름) 으로 공유된 값 사용하기
+  let 재고 = useContext(재고context);
+
   return (
     <div className="col-md-4">
       <img src={"https://codingapple1.github.io/shop/shoes"+ (props.i+1) +".jpg"} width="100%" />
       <h4>{ props.shoes.title }</h4>
       <p>{ props.shoes.content } & { props.shoes.price }</p>
+      {/*
+        props 대신 context를 쓰자 
+        하위 컴포넌트들이 props 없이 부모의 값을 사용 가능
+        간단한 데이터 전송은 걍 props 쓰는게 편함 
+        중첩된 컴포넌트가 많은 경우에는 편함
+      */}
+        {/* {재고[props.i]} */}
+        <Test></Test>
     </div>
   )
 }
 
-function Loading() {
-  <Modal.Dialog>
-  <Modal.Header closeButton>
-    <Modal.Title>Modal title</Modal.Title>
-  </Modal.Header>
-
-  <Modal.Body>
-    <p>Modal body text goes here.</p>
-  </Modal.Body>
-
-  <Modal.Footer>
-    <Button variant="secondary">Close</Button>
-    <Button variant="primary">Save changes</Button>
-  </Modal.Footer>
-</Modal.Dialog>
+function Test() {
+  let 재고 = useContext(재고context);
+  return <p>{재고[0]}</p>
 }
 
 export default App;

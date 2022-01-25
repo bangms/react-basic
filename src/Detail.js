@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components'
 import './Detail.scss';
+import {재고context} from './App.js'; 
 
 let 박스 = styled.div` 
             padding : 20px; 
@@ -13,6 +14,8 @@ let 제목 = styled.h4`
           `;
           
 function Detail(props) {
+
+  let 재고 = useContext(재고context);
 
   let [alert, alert변경] = useState(true);
 
