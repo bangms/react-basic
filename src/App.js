@@ -5,6 +5,7 @@ import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js' // 무조건 ./로 시작 (./ 현재 경로라는 뜻)
 import { Link, Route, Switch } from 'react-router-dom';
+import Detail from './Detail.js';
 
 function App() {
 
@@ -20,8 +21,8 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              <Nav.Link> <Link to="/">Home</Link> </Nav.Link>
+              <Nav.Link> <Link to="/detail">Detail</Link> </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -34,29 +35,28 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="background">
-        <h1> 20% Season Off</h1>
-        <p>Get to know more about the team maintaining React Bootstrap. Learn a little history of how, why and when the project started and how you can be a part of it.</p>
-        <Button variant="secondary">Learn More</Button>
-      </div>
       
       {/* exact 속성 추가하면 경로가 정확히 일치할 경우에만 보여줌 */}
       <Route exact path="/"> 
-        <div>메인 페이지</div>
+        <div className="background">
+          <h1> 20% Season Off</h1>
+          <p>Get to know more about the team maintaining React Bootstrap. Learn a little history of how, why and when the project started and how you can be a part of it.</p>
+          <Button variant="secondary">Learn More</Button>
+        </div>
+        <div className="container">
+          <div className="row">
+            {
+              shoes.map(function(item, i) {
+                return <Card item={shoes[i]} i={i} />
+              })
+            }
+          </div>
+        </div>
       </Route>
       <Route path="/detail">
-        <div>디테일 페이지</div>
+        <Detail />
       </Route>
 
-      <div className="container">
-        <div className="row">
-          {
-            shoes.map(function(item, i) {
-              return <Card item={shoes[i]} i={i} />
-            })
-          }
-        </div>
-      </div>
 
     </div>
   );
@@ -71,7 +71,5 @@ function Card(props) {
     </div>
   )
 }
-
-
 
 export default App;
