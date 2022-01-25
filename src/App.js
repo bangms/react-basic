@@ -1,7 +1,7 @@
 /* eslint-disable */ 
 
 import React, { useState } from 'react';
-import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown, Button, Modal } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js' // 무조건 ./로 시작 (./ 현재 경로라는 뜻)
 import { Link, Route, Switch } from 'react-router-dom';
@@ -16,6 +16,9 @@ function App() {
   let [shoes, changeShoes] = useState(Data);
   // useState() 안에 data.js에 있는 긴 [] 데이터를 넣어야하는데 너무 기니까
   // 따로 파일을 만들어서 뺀 것.
+  let [loading, loading변경] = useState(false);
+  let [load, load_msg] = useState(false);
+  let [count, count변경] = useState(0);
 
   return (
     <div className="App">
@@ -57,12 +60,30 @@ function App() {
             }
 
             </div>
+            {
+              loading == true
+              ? (<h2>Loading...</h2>)
+              : null
+            }
+            {
+              load == true
+              ? (<h2>데이터 불러오기를 실패했습니다.</h2>)
+              : null
+            }
+
             <button className="btn btn-primary" onClick={ ()=>{
-              // fetch('주소').then() 호환성이 별로 안좋음 
+              
+              // 로딩중이라는 UI 띄움
+              loading변경(true);
+
               // result 데이터는 object 가 아니라 json 형태의 자료임
               // 출력해보면 object 인데욧? axious 가 알아서 json을 object로 바꿔줌
               axios.get('https://codingapple1.github.io/shop/data2.json')
               .then((result)=>{
+
+                // 로딩중이라는 UI 안보이게 처리
+                loading변경(false);
+                
                 // 성공하면 실행할 코드
                 // console.log("성공");
                 console.log(result.data);
@@ -79,6 +100,9 @@ function App() {
 
               })
               .catch(()=>{
+                // 로딩중 UI 없애는 코드 & 실패UI 띄워주는 코드
+                loading변경(false);
+                load_msg(true);
                 // 실패하면 실행할 코드
                 console.log("실패");
               })
@@ -114,6 +138,23 @@ function Card(props) {
       <p>{ props.shoes.content } & { props.shoes.price }</p>
     </div>
   )
+}
+
+function Loading() {
+  <Modal.Dialog>
+  <Modal.Header closeButton>
+    <Modal.Title>Modal title</Modal.Title>
+  </Modal.Header>
+
+  <Modal.Body>
+    <p>Modal body text goes here.</p>
+  </Modal.Body>
+
+  <Modal.Footer>
+    <Button variant="secondary">Close</Button>
+    <Button variant="primary">Save changes</Button>
+  </Modal.Footer>
+</Modal.Dialog>
 }
 
 export default App;
