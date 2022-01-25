@@ -18,7 +18,7 @@ function App() {
   // 따로 파일을 만들어서 뺀 것.
   let [loading, loading변경] = useState(false);
   let [load, load_msg] = useState(false);
-  let [count, count변경] = useState(0);
+  let [count, count변경] = useState(1);
 
   return (
     <div className="App">
@@ -75,11 +75,18 @@ function App() {
               
               // 로딩중이라는 UI 띄움
               loading변경(true);
+              
+              // 카운트 세기
+              // 버튼을 1회 누르면 data2.json, 2회누르면 data3.json 이 경로로 요청
+              count변경(++count);
+
+              console.log(count);
 
               // result 데이터는 object 가 아니라 json 형태의 자료임
               // 출력해보면 object 인데욧? axious 가 알아서 json을 object로 바꿔줌
-              axios.get('https://codingapple1.github.io/shop/data2.json')
+              axios.get('https://codingapple1.github.io/shop/data'+ count +'.json')
               .then((result)=>{
+                console.log("axios 후 " + count);
 
                 // 로딩중이라는 UI 안보이게 처리
                 loading변경(false);
