@@ -47,20 +47,27 @@ function App() {
           <div className="container">
             <div className="row">
               {
-                shoes.map(function(item, i) {
+                shoes.map(function(shoes, i) {
                   return <Card item={shoes[i]} i={i} />
                 })
               }
             </div>
           </div>
         </Route>
-        <Route path="/detail">
-          <Detail />
+        
+        <Route path="/detail/:id">
+          <Detail shoes={shoes} />
         </Route>
+
+        <Route path="/detail">
+          <Detail item={ shoes }/>
+        </Route>
+        {/* <Route path="/detail/1">
+          <Detail item={ shoes }/>
+        </Route> */}
         <Route path="/:id"> 
         {/* /모든문자 라는 경로를 의미 */}
           <div>아무거나 적었을 때 이거 보여줘</div>
-
         </Route>
       </Switch>
     </div>
