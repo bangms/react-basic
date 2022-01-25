@@ -141,7 +141,7 @@ function App() {
         <p>날짜</p>
         <p>내용</p>
       </div> */}
-
+      <Profile />
     </div>
   );
 }
@@ -165,9 +165,42 @@ function Modal(props){
     <div className="modal">
       <h2> { props.title[props.누른제목] } </h2>
       <p>날짜</p>
-      <p>내용</p>
+      <p>상세내용</p>
     </div>
   )
 }
+
+// 예전 리액트 문법
+class Profile extends React.Component { // class : 변수/함수 보관하는 덩어리 
+  constructor() {
+    super();
+    this.state = { name : 'Kim' , age : 30}
+  }
+
+  changeName() {
+    this.setState( {name : 'Bang'} )
+  }
+
+  render() {
+    return (
+      <div> 
+        <h3>프로필 입니다. </h3>
+        <p>저는 { this.state.name } 입니다.</p>
+        <button onClick={ ()=>{this.setState( {name: 'Park'} )} }>버튼</button> 
+        <button onClick={ this.changeName.bind(this) }>버튼</button> 
+        {/* -setState(변경할 state만 넣기) 
+          값 전체를 아예 바꾸는 것이 아니라 name의 값만 바꾸어줌 age는 그대로
+          bind 안주고 싶으면 함수를 만들때 () => arrow function으로 만들기 */}
+      </div>
+    )
+  }
+
+}
+
+
+
+
+
+
 
 export default App;
