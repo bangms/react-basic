@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Navbar, Container, Nav, NavDropdown, Button } from 'react-bootstrap';
 import './App.css';
 import Data from './data.js' // 무조건 ./로 시작 (./ 현재 경로라는 뜻)
+import { Link, Route, Switch } from 'react-router-dom';
 
 function App() {
 
@@ -39,6 +40,14 @@ function App() {
         <Button variant="secondary">Learn More</Button>
       </div>
       
+      {/* exact 속성 추가하면 경로가 정확히 일치할 경우에만 보여줌 */}
+      <Route exact path="/"> 
+        <div>메인 페이지</div>
+      </Route>
+      <Route path="/detail">
+        <div>디테일 페이지</div>
+      </Route>
+
       <div className="container">
         <div className="row">
           {
